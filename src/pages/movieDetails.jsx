@@ -1,6 +1,6 @@
 import { useParams, Link } from "react-router-dom";
 
-const MovieDetails = () => {
+function MovieDetails() {
   const { id } = useParams();
 
   // In a real app, fetch movie details from API using id
@@ -23,6 +23,6 @@ const MovieDetails = () => {
       <Link to={`/book/${movie.id}`} className="btn btn-success">Book Now</Link>
     </div>
   );
-};
+}
 
 export default MovieDetails;

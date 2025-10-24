@@ -1,7 +1,7 @@
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 
-const MainLayout = ({ children }) => {
+function MainLayout({ children }) {
   return (
     <>
       <Header />
@@ -9,6 +9,6 @@ const MainLayout = ({ children }) => {
       <Footer />
     </>
   );
-};
+}
 
 export default MainLayout;

@@ -6,16 +6,17 @@ const sampleMovies = [
   { id: 3, title: "Avengers 5", genre: "Action", image: "/assets/avengers.jpg" },
 ];
 
-const MovieList = () => {
+function MovieList() {
   return (
     <div className="row">
-      {sampleMovies.map(movie => (
+      {sampleMovies.map((movie) => (
         <div className="col-md-3 mb-4" key={movie.id}>
           <MovieCard movie={movie} />
         </div>
       ))}
     </div>
   );
-};
+}
 
 export default MovieList;
+
