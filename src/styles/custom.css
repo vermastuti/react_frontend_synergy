@@ -1,0 +1,12 @@
+body {
+  background-color: #f8f9fa;
+}
+
+header h2 {
+  font-weight: 600;
+}
+
+.card img {
+  height: 250px;
+  object-fit: cover;
+}
