@@ -3,7 +3,7 @@ import MainLayout from "./layout/MainLayout";
 import Dashboard from "./pages/Dashboard";
 import MovieDetails from "./pages/MovieDetails";
 // import Booking from "./pages/Booking";
-// import Login from "./pages/Login";
+import Login from "./components/UserLogin";
 // import Register from "./pages/Register";
 
 function App() {
@@ -14,7 +14,7 @@ function App() {
           <Route path="/" element={<Dashboard />} />
           {/* <Route path="/movie/:id" element={<MovieDetails />} /> */}
           {/* <Route path="/book/:id" element={<Booking />} /> */}
-          {/* <Route path="/login" element={<Login />} /> */}
+          <Route path="/login" element={<Login />} />
           {/* <Route path="/register" element={<Register />} /> */}
         </Routes>
       </MainLayout>
