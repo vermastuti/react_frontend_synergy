@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import MovieDetails from "./MovieDetails";
 
 function MovieCard({ movie }) {
   return (
@@ -7,8 +8,8 @@ function MovieCard({ movie }) {
       <div className="card-body">
         <h5>{movie.title}</h5>
         <p>{movie.genre}</p>
-        <Link to={`/movie/${movie.id}`} className="btn btn-primary">
-          View Details
+        <Link to={`/MovieDetails/${movie.id}`} className="btn btn-primary">
+          View Detail
         </Link>
       </div>
     </div>

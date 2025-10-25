@@ -1,11 +1,10 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import MainLayout from "./layout/MainLayout";
 import Dashboard from "./pages/Dashboard";
-import MovieDetails from "./pages/MovieDetails";
 import UserRegistration from "./components/UserRegistration";
-// import Booking from "./pages/Booking";
 import Login from "./components/UserLogin";
-// import Register from "./pages/Register";
+import MovieDetails from "./components/MovieDetails";
+import Book from "./components/Book";
 
 function App() {
   return (
@@ -19,6 +18,11 @@ function App() {
           <Route path="/register" element={<UserRegistration />} />
           <Route path="/login" element={<Login />} />
          
+          <Route path="/Book/:id" element={<Book />} />
+
+          <Route path="/MovieDetails/:id" element={<MovieDetails />} />
+          {/* <Route path="/login" element={<Login />} /> */}
+          {/* <Route path="/register" element={<Register />} /> */}
         </Routes>
       </MainLayout>
     </Router>
