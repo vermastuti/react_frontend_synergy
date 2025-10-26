@@ -7,10 +7,10 @@ function MovieList() {
 // Sample Movies
 const movies = [
   { id: 1, title: "De De Pyaar De 2", genre: "Romantic Comedy", image: "./src/assets/Images/dune2.jpg" },
-  { id: 2, title: "120 Bahadur", genre: "War Drama", image: "/assets/120-bahadur.jpg" },
-  { id: 3, title: "The Taj Story", genre: "Courtroom Drama", image: "/assets/the-taj-story.jpg" },
-  { id: 4, title: "HAQ", genre: "Thriller", image: "/assets/haq.jpg" },
-  { id: 5, title: "Bhagwat: Chapter One - Raakshas", genre: "Fantasy", image: "/assets/bhagwat-chapter-one.jpg" },
+  { id: 2, title: "120 Bahadur", genre: "War Drama", image: "./src/assets/Images/120-bahadur.jpg" },
+  { id: 3, title: "The Taj Story", genre: "Courtroom Drama", image: "./src/assets/Images/the-taj-story.jpg" },
+  { id: 4, title: "HAQ", genre: "Thriller", image: "./src/assets/Images/haq.jpg" },
+  { id: 5, title: "Bhagwat: Chapter One - Raakshas", genre: "Fantasy", image: "./src/assets/Images/bhagwat-chapter-one.jpg" },
   { id: 6, title: "Mahayoddha Rama", genre: "Mythological Action", image: "/assets/mahayoddha-rama.jpg" },
   { id: 7, title: "Ek Deewane Ki Deewaniyat", genre: "Romantic Drama", image: "/assets/ek-deewane-ki-deewaniyat.jpg" },
   { id: 8, title: "Thamma", genre: "Comedy", image: "/assets/thamma.jpg" },
