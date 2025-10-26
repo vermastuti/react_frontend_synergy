@@ -8,8 +8,8 @@ export default function UserRegistration() {
     const navigate = useNavigate();
 
     const [user, setUser] = useState(
-        { firstName: "Ambika", lastName: "Garg", mobileNo: "9897788790", email: "ambika@gmail.com", password: "Ambika@123" }
-       //   { firstName: "", lastName: "", mobileNo: "", email: "", password: "" }
+        // { firstName: "Ambika", lastName: "Garg", mobileNo: "9897788790", email: "ambika@gmail.com", password: "Ambika@123" }
+         { firstName: "", lastName: "", mobileNo: "", email: "", password: "" }
     )
 
     const [error, setError] = useState({}); //state of errors
