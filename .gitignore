@@ -15,6 +15,9 @@ pids
 *.seed
 *.pid.lock
 
+#cached file
+.DS_Store
+
 # Coverage directory
 coverage
 *.lcov
