@@ -1,11 +1,14 @@
 import { useState } from "react"
 import '../styles/userRegistration.css';
 import { useNavigate } from 'react-router-dom'
+import axios from "axios";
+import { BASE_URL } from "../utils/Constants";
 
 export default function UserRegistration() {
     const navigate = useNavigate();
 
     const [user, setUser] = useState(
+        // { firstName: "Ambika", lastName: "Garg", mobileNo: "9897788790", email: "ambika@gmail.com", password: "Ambika@123" }
         { firstName: "", lastName: "", mobileNo: "", email: "", password: "" }
     )
 
@@ -57,19 +60,42 @@ export default function UserRegistration() {
     }
 
     const handleRegister = () => {
-
         if (validate()) {
-            sessionStorage.setItem("UserId", user.email);
-            navigate("/login");
+            axios.post(BASE_URL + "/auth/api/register", {
+                "firstName": user.firstName,
+                "lastName": user.lastName,
+                "mobileNo": user.mobileNo,
+                "email": user.email,
+                "password": user.password,
+            })
+                .then((response) => {
+                    console.log("User Registered successfully", response.data);
+
+                    //sessionStorage.setItem("UserId", user.email);
+                    navigate("/login");
+                })
+                .catch((err) => {
+                    if (err && err.response && err.response.data) {
+                        const errorMessage = err.response.data;
+
+                        if (typeof errorMessage === "string" && errorMessage.includes("Email already exists")) {
+                            alert("This email is already registered. Please use a different email address.");
+                        } else {
+                            // alert(JSON.stringify(errorMessage));
+                            setError({
+                                ...error,
+                                ...err.response.data,
+                            })
+                        }
+                    }
+              });
         }
     }
-
-
 
     return (
         <div className="registration-container">
             <div className="form-container">
-                <h1>Register</h1>
+                <h1>Registration</h1>
 
                 <label>
                     FirstName:
@@ -81,7 +107,7 @@ export default function UserRegistration() {
                     {error.lastName ? <p className="error">{error.lastName}</p> : null}
                 </label>
                 <label> MobileNo:
-                    <input type="tel" name="mobileNo" value={user.mobileNo} onChange={handleInputChange} ></input>
+                    <input type="tel" name="mobileNo" value={user.mobileNo} onChange={handleInputChange} maxLength={10} ></input>
                     {error.mobileNo ? <p className="error">{error.mobileNo}</p> : null}
                 </label>
                 <label> Email:

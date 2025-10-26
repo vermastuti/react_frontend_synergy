@@ -1,0 +1,19 @@
+/* Ensures footer stays at the bottom when content is short */
+.layout-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Allows main content to expand and push footer down */
+.layout-content {
+  flex: 1;
+}
+
+/* Style footer globally */
+footer {
+  background-color: #212529;
+  color: white;
+  text-align: center;
+  padding: 1rem 0;
+}

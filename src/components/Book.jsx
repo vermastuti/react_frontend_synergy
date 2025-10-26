@@ -41,6 +41,6 @@ const Book = () => {
       <button className="btn btn-primary" onClick={handleBooking}>Book Ticket</button>
     </div>
   );
-};
+}
 
 export default Book;

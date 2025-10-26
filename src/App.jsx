@@ -1,9 +1,11 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import MainLayout from "./layout/MainLayout";
+import MainLayout from "./layout/mainLayout";
 import Dashboard from "./pages/Dashboard";
 import UserRegistration from "./components/UserRegistration";
 import Login from "./components/UserLogin";
+import PrivateRoute from "./components/PrivateRoute";
 import MovieDetails from "./components/MovieDetails";
+import MyBookings from "./components/MyBookings";
 import Book from "./components/Book";
 
 function App() {
@@ -21,6 +23,14 @@ function App() {
           <Route path="/Book/:id" element={<Book />} />
 
           <Route path="/MovieDetails/:id" element={<MovieDetails />} />
+          <Route
+  path="/mybookings"
+  element={
+    <PrivateRoute>
+      <MyBookings />
+    </PrivateRoute>
+  }
+/>
           {/* <Route path="/login" element={<Login />} /> */}
           {/* <Route path="/register" element={<Register />} /> */}
         </Routes>
