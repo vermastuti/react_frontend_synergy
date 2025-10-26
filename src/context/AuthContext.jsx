@@ -15,11 +15,13 @@ export const AuthProvider = ({ children }) => {
 
   const login = (username) => {
     sessionStorage.setItem("username", username);
+     sessionStorage.setItem("userId", 6);
     setUser(username);
   };
 
   const logout = () => {
     sessionStorage.removeItem("username");
+    sessionStorage.removeItem("userId");
     setUser(null);
   };
 
