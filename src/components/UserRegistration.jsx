@@ -9,7 +9,7 @@ export default function UserRegistration() {
 
     const [user, setUser] = useState(
         // { firstName: "Ambika", lastName: "Garg", mobileNo: "9897788790", email: "ambika@gmail.com", password: "Ambika@123" }
-         { firstName: "", lastName: "", mobileNo: "", email: "", password: "" }
+        { firstName: "", lastName: "", mobileNo: "", email: "", password: "" }
     )
 
     const [error, setError] = useState({}); //state of errors
@@ -61,7 +61,7 @@ export default function UserRegistration() {
 
     const handleRegister = () => {
         if (validate()) {
-            axios.post(BASE_URL + "/api/auth/register", {
+            axios.post(BASE_URL + "/auth/api/register", {
                 "firstName": user.firstName,
                 "lastName": user.lastName,
                 "mobileNo": user.mobileNo,
@@ -70,14 +70,25 @@ export default function UserRegistration() {
             })
                 .then((response) => {
                     console.log("User Registered successfully", response.data);
+
                     //sessionStorage.setItem("UserId", user.email);
                     navigate("/login");
                 })
-                .catch((error) => {
-                    if (error && error.response && error.response.data) {
-                        alert(JSON.stringify(error.response.data));
+                .catch((err) => {
+                    if (err && err.response && err.response.data) {
+                        const errorMessage = err.response.data;
+
+                        if (typeof errorMessage === "string" && errorMessage.includes("Email already exists")) {
+                            alert("This email is already registered. Please use a different email address.");
+                        } else {
+                            // alert(JSON.stringify(errorMessage));
+                            setError({
+                                ...error,
+                                ...err.response.data,
+                            })
+                        }
                     }
-                });
+              });
         }
     }
 
