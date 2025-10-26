@@ -1,12 +1,15 @@
 import { useState } from "react"
 import '../styles/userRegistration.css';
 import { useNavigate } from 'react-router-dom'
+import axios from "axios";
+import { BASE_URL } from "../utils/Constants";
 
 export default function UserRegistration() {
     const navigate = useNavigate();
 
     const [user, setUser] = useState(
-        { firstName: "", lastName: "", mobileNo: "", email: "", password: "" }
+        // { firstName: "Ambika", lastName: "Garg", mobileNo: "9897788790", email: "ambika@gmail.com", password: "Ambika@123" }
+         { firstName: "", lastName: "", mobileNo: "", email: "", password: "" }
     )
 
     const [error, setError] = useState({}); //state of errors
@@ -57,19 +60,31 @@ export default function UserRegistration() {
     }
 
     const handleRegister = () => {
-
         if (validate()) {
-            sessionStorage.setItem("UserId", user.email);
-            navigate("/login");
+            axios.post(BASE_URL + "/api/auth/register", {
+                "firstName": user.firstName,
+                "lastName": user.lastName,
+                "mobileNo": user.mobileNo,
+                "email": user.email,
+                "password": user.password,
+            })
+                .then((response) => {
+                    console.log("User Registered successfully", response.data);
+                    //sessionStorage.setItem("UserId", user.email);
+                    navigate("/login");
+                })
+                .catch((error) => {
+                    if (error && error.response && error.response.data) {
+                        alert(JSON.stringify(error.response.data));
+                    }
+                });
         }
     }
-
-
 
     return (
         <div className="registration-container">
             <div className="form-container">
-                <h1>Register</h1>
+                <h1>Registration</h1>
 
                 <label>
                     FirstName:
@@ -81,7 +96,7 @@ export default function UserRegistration() {
                     {error.lastName ? <p className="error">{error.lastName}</p> : null}
                 </label>
                 <label> MobileNo:
-                    <input type="tel" name="mobileNo" value={user.mobileNo} onChange={handleInputChange} ></input>
+                    <input type="tel" name="mobileNo" value={user.mobileNo} onChange={handleInputChange} maxLength={10} ></input>
                     {error.mobileNo ? <p className="error">{error.mobileNo}</p> : null}
                 </label>
                 <label> Email:
