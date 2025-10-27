@@ -31,9 +31,8 @@ const Header = () => {
               <Link to="/login" className="text-white me-3">
                 Login
               </Link>
-              <Link to="/register" className="text-white">
-                Register
-              </Link>
+              <Link to="/register" className="text-white me-3">Register</Link>
+              <Link to="/admin" className="text-white me-3">Admin Panel</Link>
             </>
           ) : (
             <>

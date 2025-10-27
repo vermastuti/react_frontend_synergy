@@ -7,34 +7,16 @@ import PrivateRoute from "./components/PrivateRoute";
 import MovieDetails from "./components/MovieDetails";
 import MyBookings from "./components/MyBookings";
 import Book from "./components/Book";
+import AdminDashboard from "./components/AdminPanel/AdminDashboard";
+import { PublicPages } from "./components/PublicPages";
 
 function App() {
   return (
     <Router>
-      <MainLayout>
         <Routes>
-          <Route path="/" element={<Dashboard />} />
-          {/* <Route path="/movie/:id" element={<MovieDetails />} /> */}
-          {/* <Route path="/book/:id" element={<Booking />} /> */}
-          
-          <Route path="/register" element={<UserRegistration />} />
-          <Route path="/login" element={<Login />} />
-         
-          <Route path="/Book/:id" element={<Book />} />
-
-          <Route path="/MovieDetails/:id" element={<MovieDetails />} />
-          <Route
-  path="/mybookings"
-  element={
-    <PrivateRoute>
-      <MyBookings />
-    </PrivateRoute>
-  }
-/>
-          {/* <Route path="/login" element={<Login />} /> */}
-          {/* <Route path="/register" element={<Register />} /> */}
+          <Route path="/admin/*" element={<AdminDashboard/>}/>
+          <Route path="/*" element={<PublicPages />} />
         </Routes>
-      </MainLayout>
     </Router>
   );
 }
