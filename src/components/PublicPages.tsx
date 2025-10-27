@@ -14,17 +14,24 @@ export const PublicPages = () => {
         <div>
             <MainLayout>
             <Routes>
-                <Route path="/" element={<Dashboard />} />
-                {/* <Route path="/movie/:id" element={<MovieDetails />} /> */}
-                {/* <Route path="/book/:id" element={<Booking />} /> */}
+          <Route path="/" element={<Dashboard />} />
+          {/* <Route path="/movie/:id" element={<MovieDetails />} /> */}
+          {/* <Route path="/book/:id" element={<Booking />} /> */}
           
-                <Route path="/register" element={<UserRegistration />} />
-                <Route path="/login" element={<Login />} />
-                
-                <Route path="/Book/:id" element={<Book />} />
-
-                <Route path="/MovieDetails/:id" element={<MovieDetails />} />
-                <Route path="/mybookings" element={<PrivateRoute><MyBookings /></PrivateRoute>}/>
+          <Route path="/register" element={<UserRegistration />} />
+          <Route path="/login" element={<Login />} />
+         
+          <Route path="/Book/:id" element={<Book />} />
+        
+          <Route path="/MovieDetails/:id" element={<MovieDetails />} />
+          <Route
+  path="/mybookings"
+  element={
+    <PrivateRoute>
+      <MyBookings />
+    </PrivateRoute>
+  }
+/>
             </Routes>
             </MainLayout>
         </div>

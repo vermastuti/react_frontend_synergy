@@ -1,30 +1,34 @@
-import { Link ,useNavigate} from "react-router-dom";
-import "../styles/movieCard.css"
+import { Link, useNavigate } from "react-router-dom";
+import "../styles/movieCard.css";
 
-function MovieCard({ movie }) {
-   const navigate = useNavigate();
-     function handleViewDetails() {
-    // Check if user is logged in
+function MovieCard(props) {
+  const navigate = useNavigate();
+
+  function handleViewDetails() {
     const username = sessionStorage.getItem("username");
 
     if (username) {
-      // User logged in → go to Movie Details
-      navigate(`/MovieDetails/${movie.id}`);
+      console.log("Navigating with movieId:", props.movie.id);
+      navigate(`/MovieDetails/${props.movie.id}`, { state: { movie: props.movie } });
     } else {
-      // User not logged in → go to Login page
       navigate("/login");
     }
   }
+
   return (
     <div className="card movie-card">
-      <img src={`src/assets/Images/${movie.image}`} alt={movie.title} className="card-img-top" />
+      <img
+        src={`src/assets/Images/${props.movie.image}`}
+        alt={props.movie.title}
+        className="card-img-top"
+      />
       <div className="card-body">
-        <h5>{movie.title}</h5>
-        <p>{movie.genre}</p>
+        <h5>{props.movie.title}</h5>
+        <p>{props.movie.genre}</p>
         <div>
-          <Link to={`/MovieDetails/${movie.id}`} className="btn btn-primary">
-            View Detail
-          </Link>
+          <button className="btn btn-primary" onClick={handleViewDetails}>
+            View Details
+          </button>
         </div>
       </div>
     </div>
@@ -32,3 +36,4 @@ function MovieCard({ movie }) {
 }
 
 export default MovieCard;
+

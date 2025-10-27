@@ -1,7 +1,6 @@
 import React from 'react';
 import { DataProvider, DeleteParams, RaRecord } from 'react-admin';
 
-
 export interface Movie extends RaRecord {
   // id: number;
   title: string;
