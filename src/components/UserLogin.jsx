@@ -1,44 +1,122 @@
-import React from 'react'
-import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+
+import axios from "axios"; // ✅ Import axios
+import "../styles/Login.css"; // dark red theme CSS
 
 export default function Login() {
-   const navigate=useNavigate()
+    const navigate = useNavigate();
 
- 
-  
-  const [username , setUsername] = useState("") 
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
 
-  const [password , setPassword] = useState("") 
+    const [emailError, setEmailError] = useState("");
+    const [passwordError, setPasswordError] = useState("");
+    const [loading, setLoading] = useState(false);
 
-  function getUsername(evt) {
-
-    setUsername(evt.target.value) 
-
-  } 
-
-  function getPassword(evt) { 
-
-    setPassword(evt.target.value)
-
-  }
-
-  function validatingInputs() { 
-    if(username == "Sangeeta" && password == "Pass@123") { 
-        sessionStorage.setItem("username",username)
-        navigate("/")
-        //alert("User Authenticated ")
+    function getUsername(evt) {
+        setUsername(evt.target.value);
+        setEmailError("");
     }
-    else 
-        alert("Invalid User")
 
-  }
+    function getPassword(evt) {
+        setPassword(evt.target.value);
+        setPasswordError("");
+    }
+
+    async function validatingInputs() {
+        let valid = true;
+
+        // Email validation using regex
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailPattern.test(username)) {
+            setEmailError("Please enter a valid email address");
+            valid = false;
+        }
+
+        // Password validation — only check if not empty
+        if (password.trim() === "") {
+            setPasswordError("Password cannot be empty");
+            valid = false;
+        }
+
+        if (!valid) return;
+
+        // ✅ Send login request to backend
+        try {
+            setLoading(true);
+
+            const response = await axios.post("http://localhost:9003/auth/api/login", {
+                email: username,
+                password: password,
+            });
+
+            console.log(response)
+            // Example: If backend returns { success: true, token: "..." }
+            if (response.data) {
+                sessionStorage.setItem("username", username);
+                //sessionStorage.setItem("token", response.data.token); // optional if JWT
+                navigate("/");
+            } else {
+                setPasswordError("Invalid username or password");
+            }
+        } catch (error) {
+            console.error("Login error:", error);
+            if (error.response) {
+                if ((error.response.status === 401 || error.response.status === 403)) {
+                    setPasswordError("Invalid credentials");
+                }
+            }
+            else {
+                setPasswordError("Network Not Connected");
+            }
+        } finally {
+            setLoading(false);
+        }
+    }
+
     return (
-    <div>
-      <div>User Name : <input type='email' name="username" onChange={getUsername}/></div><br/>
-      <div>Password : <input type="password" name="password" onChange={getPassword}/></div><br/>
-      <div><input type="button" value="Login" onClick={validatingInputs}/></div>
+        <div className="login-container">
+            <div className="form-container">
+                <h1>Login</h1>
 
-    </div>
-  )
+                <label>
+                    Email
+                    <input
+                        autoComplete="off"
+                        type="email"
+                        name="username"
+                        value={username}
+                        onChange={getUsername}
+                        placeholder="Enter your email"
+                    />
+                    {emailError && <div className="error">{emailError}</div>}
+                </label>
+
+                <label>
+                    Password
+                    <input
+                        autoComplete="off"
+                        type="password"
+                        name="password"
+                        value={password}
+                        onChange={getPassword}
+                        placeholder="Enter your password"
+                    />
+                    {passwordError && <div className="error">{passwordError}</div>}
+                </label>
+
+                <button onClick={validatingInputs} disabled={loading}>
+                    {loading ? "Logging in..." : "Login"}
+                </button>
+
+                <p className="register-text">
+                    Not registered?{" "}
+                    <Link to="/register" className="link">
+                        Sign Up
+                    </Link>
+                </p>
+            </div>
+        </div>
+    );
 }
