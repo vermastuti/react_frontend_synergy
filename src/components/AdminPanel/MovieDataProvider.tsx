@@ -13,7 +13,7 @@ export interface Movie extends RaRecord {
   [key: string]: any; // Allow other optional fields
 }
 
-const API_URL = 'http://localhost:9002/api/movies';
+const API_URL = 'http://localhost:9002/api';
 let allMovies: any = null;
 
 
@@ -27,7 +27,7 @@ export const MovieDataProvider: DataProvider = {
 
     // 1. If we don't have the data yet, fetch it from the API
     if (allMovies === null) {
-      const response = await fetch('http://localhost:9002/api/movies');
+      const response = await fetch(`${API_URL}/${resource}`);
       allMovies = await response.json();
     }
 
@@ -82,7 +82,7 @@ export const MovieDataProvider: DataProvider = {
   },
 
   getMany: async (resource:any, params:any) => {
-    const response = await fetch(API_URL);
+    const response = await fetch(`${API_URL}/${resource}`);
     const data = await response.json();
     console.log("getMany is called");
 
@@ -93,7 +93,7 @@ export const MovieDataProvider: DataProvider = {
   },
 
   getManyReference: async(resource:any, params:any) => {
-    const response = await fetch(API_URL);
+    const response = await fetch(`${API_URL}/${resource}`);
     const data = await response.json();
     console.log("getManyReference is called");
 
@@ -104,13 +104,13 @@ export const MovieDataProvider: DataProvider = {
   },
 
   getOne: async (resource:any, params:any) => {
-    const response = await fetch(`${API_URL}/${params.id}`);
+    const response = await fetch(`${API_URL}/${resource}/${params.id}`);
     const data = await response.json();
     return { data };
   },
 
   update: async (resource:any, params:any) => {
-    const response = await fetch(`${API_URL}/${params.id}`, {
+    const response = await fetch(`${API_URL}/${resource}/${params.id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(params.data),
@@ -122,7 +122,7 @@ export const MovieDataProvider: DataProvider = {
   },
 
   updateMany: async(resource:any, params:any) => {
-    const response = await fetch(API_URL, {
+    const response = await fetch(`${API_URL}/${resource}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(params.data),
@@ -142,7 +142,7 @@ export const MovieDataProvider: DataProvider = {
   // },
 
   create: async (resource:any, params:any) => {
-    const response = await fetch(API_URL, {
+    const response = await fetch(`${API_URL}/${resource}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(params.data),
@@ -154,7 +154,7 @@ export const MovieDataProvider: DataProvider = {
   },
 
   delete: async (resource:string, params:DeleteParams) => {
-    await fetch(`${API_URL}/${params.id}`, { method: 'DELETE' });
+    await fetch(`${API_URL}/${resource}/${params.id}`, { method: 'DELETE' });
     const deletedRecord = { id: params.id } as Movie;
 
     return { data: deletedRecord };
