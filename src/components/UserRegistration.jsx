@@ -129,6 +129,7 @@ export default function UserRegistration() {
                         type="text"
                         name="firstName"
                         className="form-control"
+                        placeholder="Enter your first name"
                         value={user.firstName}
                         onChange={handleInputChange}
                     />
@@ -141,6 +142,7 @@ export default function UserRegistration() {
                         type="text"
                         name="lastName"
                         className="form-control"
+                        placeholder="Enter your last name"
                         value={user.lastName}
                         onChange={handleInputChange}
                     />
@@ -153,6 +155,7 @@ export default function UserRegistration() {
                         type="tel"
                         name="mobileNo"
                         className="form-control"
+                        placeholder="Enter your mobile no."
                         value={user.mobileNo}
                         onChange={handleInputChange}
                         maxLength={10}
@@ -166,6 +169,7 @@ export default function UserRegistration() {
                         type="email"
                         name="email"
                         className="form-control"
+                        placeholder="Enter your email"
                         value={user.email}
                         onChange={handleInputChange}
                     />
@@ -178,6 +182,7 @@ export default function UserRegistration() {
                         type="password"
                         name="password"
                         className="form-control"
+                        placeholder="Enter your password"
                         value={user.password}
                         onChange={handleInputChange}
                     />
