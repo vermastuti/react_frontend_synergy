@@ -1,6 +1,6 @@
 
 .registration-container {
-  background-color: white; /* dark movie theme */
+  background-color: black; /* dark movie theme */
   font-family: 'Poppins', sans-serif; 
   color: #f5f5f5;
   margin: 0;
@@ -96,3 +96,4 @@ button {
     font-size: 14px;
   }
 }
+

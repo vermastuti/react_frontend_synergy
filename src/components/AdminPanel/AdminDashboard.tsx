@@ -17,6 +17,9 @@ import { MovieShowList } from './pages/movie-shows/movie-show-list';
 import { MovieShowEdit } from './pages/movie-shows/movie-show-edit';
 import { MovieShowCreate } from './pages/movie-shows/movie-show-create';
 import { MovieShowView } from './pages/movie-shows/movie-show-view';
+import { TheatreList } from './pages/theatres/theatre-list';
+import { TheatreEdit } from './pages/theatres/theatre-edit';
+import { TheatreCreate } from './pages/theatres/theatre-create';
 
 
 export default function AdminDashboard(){
@@ -34,7 +37,16 @@ export default function AdminDashboard(){
                 list={MovieShowList} 
                 edit={MovieShowEdit}
                 create={MovieShowCreate}
-            />
+                >
+            </Resource>
+            
+           <Resource  icon={TheatersIcon} name="theatres" 
+                list={TheatreList} 
+                edit={TheatreEdit}
+                create={TheatreCreate}
+                >
+             </Resource>   
+
         </Admin>
     )
 };
