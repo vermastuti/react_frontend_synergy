@@ -1,15 +1,15 @@
-import { DateField, NumberField, Show, SimpleShowLayout, TextField } from 'react-admin';
+import { DateField, NumberField, ReferenceField, Show, SimpleShowLayout, TextField } from 'react-admin';
 
 export const MovieShowView = () => (
   <Show title="View Show">         
     <SimpleShowLayout>            
       <NumberField source="showId" />
       <DateField source="showDate" />
-      <DateField source="showTime" showDate={false} />
-      <NumberField source="movieId" label="Movie"/>
-      <NumberField source="theatreId" label="Theatre"/>
+      <TextField source="showTime" />
+      <ReferenceField source="id" label="Movie" reference='movies'/>
+      <ReferenceField source="id" label="Theatre" reference='theatre'/>
       <NumberField source="totalPrice" />
-      <NumberField source="availableSeats" /> 
+      <NumberField source="seats" /> 
       <TextField source="status"/> 
     </SimpleShowLayout>    
 </Show>

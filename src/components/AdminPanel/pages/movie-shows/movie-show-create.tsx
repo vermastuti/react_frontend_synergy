@@ -1,16 +1,32 @@
-import { Create, DateInput, DateTimeInput, NumberInput, SimpleForm, TextInput } from "react-admin";
+import { Create, DateInput, DateTimeInput, NumberInput, ReferenceInput, SimpleForm, TextInput, TimeInput } from "react-admin";
 
+// Define the transform function
+const transformShowData = (data) => {
+    // Make a copy of the data to avoid direct mutation
+    const transformedData = { ...data };
+
+    // Format the time correctly
+    if (transformedData.showTime instanceof Date) {
+        // Use toISOString() and extract the HH:mm:ss part
+        transformedData.showTime = transformedData.showTime.toISOString().substring(11, 19);
+    }
+    
+    // Ensure all numeric inputs are parsed as numbers
+    transformedData.seats = parseInt(transformedData.seats, 10);
+    transformedData.totalPrice = parseFloat(transformedData.totalPrice);
+
+    return transformedData;
+};
 
 export const MovieShowCreate = () => (
-  <Create title="Add Show">
+  <Create title="Add Show" transform={transformShowData}>
     <SimpleForm>
-      <NumberInput source="showId" />
-      {/* <DateInput source="showDate" />
-      <DateTimeInput source="showTime"/>
-      <NumberInput source="movieId" label="Movie"/>
-      <NumberInput source="theatreId" label="Theatre"/>
-      <NumberInput source="totalPrice" /> */}
-      <NumberInput source="availableSeats" />
+      <DateInput source="showDate"/>
+      <TimeInput source="showTime" label="Show Time"/>
+      <ReferenceInput source="movieId" label="Movie" reference="movies"/>
+      <ReferenceInput source="theatreId" label="Theatre" reference="theatre"/>
+      <NumberInput source="totalPrice" />
+      <NumberInput source="seats" />
       <TextInput source="status"/>    
     </SimpleForm>
   </Create>

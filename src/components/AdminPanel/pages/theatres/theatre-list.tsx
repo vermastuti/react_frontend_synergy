@@ -35,7 +35,7 @@ export const TheatreList = (props: any) => {
       {...props}
     >
       <Datagrid
-        expand={<TheatrePanel />}
+        // expand={<TheatrePanel />}
         sx={{
           '.RaDatagrid-headerCell': { padding: '5px' },
         }}
@@ -44,7 +44,7 @@ export const TheatreList = (props: any) => {
         <TextField source="name" label="Theatre Name" />
         <TextField source="city" label="City" />
         <NumberField source="seats" label="Seats" />
-        <EditButton label="Edit" />
+        <EditButton />
       </Datagrid>
     </List>
   );

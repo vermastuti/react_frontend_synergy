@@ -3,13 +3,12 @@ import { DateInput, DateTimeInput, Edit, NumberInput, SimpleForm, TextInput } fr
 export const MovieShowEdit = () => (    
 <Edit title="Edit Show">        
     <SimpleForm>            
-      <NumberInput source="showId" />
-      {/* <DateInput source="showDate" />
+      <DateInput source="showDate" />
       <DateTimeInput source="showTime"/>
       <NumberInput source="movieId" label="Movie"/>
       <NumberInput source="theatreId" label="Theatre"/>
-      <NumberInput source="totalPrice" /> */}
-      <NumberInput source="availableSeats" />
+      <NumberInput source="totalPrice" />
+      <NumberInput source="seats" />
       <TextInput source="status"/>       
     </SimpleForm>    
 </Edit>);
