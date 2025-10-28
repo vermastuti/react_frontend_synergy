@@ -3,6 +3,8 @@ import '../styles/userRegistration.css';
 import { useNavigate } from 'react-router-dom'
 import axios from "axios";
 import { BASE_URL } from "../utils/Constants";
+import { Modal, Button } from 'react-bootstrap';
+
 
 export default function UserRegistration() {
     const navigate = useNavigate();
@@ -11,11 +13,35 @@ export default function UserRegistration() {
         // { firstName: "Ambika", lastName: "Garg", mobileNo: "9897788790", email: "ambika@gmail.com", password: "Ambika@123" }
         { firstName: "", lastName: "", mobileNo: "", email: "", password: "" }
     )
-
     const [error, setError] = useState({}); //state of errors
+
+    const [showModal, setShowModal] = useState(false);
+
+    const [modalMessage, setModalMessage] = useState("");
+
+    const [showModalCloseButton, setShowModalCloseButton] = useState(false);
+
+    const handleCloseModal = () => setShowModal(false);
+
+    const handleShowModal = (message, showCloseButton) => {
+        setModalMessage(message);
+        setShowModal(true);
+        setShowModalCloseButton(showCloseButton);
+    };
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
+
+        if (name === "mobileNo") {
+            // allow only digits
+            const digitsOnly = value.replace(/\D/g, "");
+            setUser({
+                ...user,
+                [name]: digitsOnly
+            });
+            return; 
+        }
+
         setUser({
             ...user,
             [name]: value
@@ -69,59 +95,109 @@ export default function UserRegistration() {
                 "password": user.password,
             })
                 .then((response) => {
-                    console.log("User Registered successfully", response.data);
+                    //console.log("User Registered successfully", response.data);
+                    handleShowModal("User Registered Successfully!", false);
+                    setTimeout(() => navigate("/login"), 2000);
 
-                    //sessionStorage.setItem("UserId", user.email);
-                    navigate("/login");
                 })
                 .catch((err) => {
                     if (err && err.response && err.response.data) {
                         const errorMessage = err.response.data;
 
                         if (typeof errorMessage === "string" && errorMessage.includes("Email already exists")) {
-                            alert("This email is already registered. Please use a different email address.");
+                            handleShowModal("This email is already registered. Please use a different email address.", true);
+
+
                         } else {
-                            // alert(JSON.stringify(errorMessage));
                             setError({
                                 ...error,
                                 ...err.response.data,
                             })
                         }
                     }
-              });
+                });
         }
     }
 
     return (
-        <div className="registration-container">
-            <div className="form-container">
-                <h1>Registration</h1>
-
-                <label>
-                    FirstName:
-                    <input type="text" name="firstName" value={user.firstName} onChange={handleInputChange} ></input>
+        <div className="container-fluid registration-container d-flex justify-content-center align-items-center min-vh-100">
+            <div className="form-container col-11 col-sm-8 col-md-6 col-lg-4 p-4 shadow-lg rounded">
+                <h1 className="text-center mb-4 text-danger">Registration</h1>
+                <div className="mb-3">
+                    <label className="form-label">First Name:</label>
+                    <input
+                        type="text"
+                        name="firstName"
+                        className="form-control"
+                        value={user.firstName}
+                        onChange={handleInputChange}
+                    />
                     {error.firstName ? <p className="error">{error.firstName}</p> : null}
-                </label>
-                <label> LastName:
-                    <input type="text" name="lastName" value={user.lastName} onChange={handleInputChange}></input>
+                </div>
+
+                <div className="mb-3">
+                    <label className="form-label">Last Name:</label>
+                    <input
+                        type="text"
+                        name="lastName"
+                        className="form-control"
+                        value={user.lastName}
+                        onChange={handleInputChange}
+                    />
                     {error.lastName ? <p className="error">{error.lastName}</p> : null}
-                </label>
-                <label> MobileNo:
-                    <input type="tel" name="mobileNo" value={user.mobileNo} onChange={handleInputChange} maxLength={10} ></input>
+                </div>
+
+                <div className="mb-3">
+                    <label className="form-label">Mobile No:</label>
+                    <input
+                        type="tel"
+                        name="mobileNo"
+                        className="form-control"
+                        value={user.mobileNo}
+                        onChange={handleInputChange}
+                        maxLength={10}
+                    />
                     {error.mobileNo ? <p className="error">{error.mobileNo}</p> : null}
-                </label>
-                <label> Email:
-                    <input type="email" name="email" value={user.email} onChange={handleInputChange}></input>
+                </div>
+
+                <div className="mb-3">
+                    <label className="form-label">Email:</label>
+                    <input
+                        type="email"
+                        name="email"
+                        className="form-control"
+                        value={user.email}
+                        onChange={handleInputChange}
+                    />
                     {error.email ? <p className="error">{error.email}</p> : null}
-                </label>
-                <label> Password:
-                    <input type="password" name="password" value={user.password} onChange={handleInputChange}></input>
+                </div>
+
+                <div className="mb-3">
+                    <label className="form-label">Password:</label>
+                    <input
+                        type="password"
+                        name="password"
+                        className="form-control"
+                        value={user.password}
+                        onChange={handleInputChange}
+                    />
                     {error.password ? <p className="error">{error.password}</p> : null}
-                </label>
+                </div>
 
-                <button onClick={handleRegister}>Register</button>
-
+                <button className="btn btn-danger w-100" onClick={handleRegister}>
+                    Register
+                </button>
             </div>
+            <Modal show={showModal} onHide={handleCloseModal} centered>
+                <Modal.Header closeButton className="bg-dark text-white">
+                    <Modal.Title>MovieBooking 🎬</Modal.Title>
+                </Modal.Header>
+                <Modal.Body className="text-center">{modalMessage}</Modal.Body>
+
+                {showModalCloseButton ? <Modal.Footer>
+                    <Button variant="danger" onClick={handleCloseModal}>Close</Button>
+                </Modal.Footer> : null}
+            </Modal>
         </div>
-    )
+    );
 }
