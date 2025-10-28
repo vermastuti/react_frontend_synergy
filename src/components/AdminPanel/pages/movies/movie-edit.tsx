@@ -11,4 +11,5 @@ export const MovieEdit = () => (
       <TextInput source="duration" />
       <TextInput source="status" />       
     </SimpleForm>    
-</Edit>);
+</Edit>
+);

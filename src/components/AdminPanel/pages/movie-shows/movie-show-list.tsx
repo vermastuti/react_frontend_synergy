@@ -12,6 +12,7 @@ import {
   DateInput,
   NumberInput,
   DateField,
+  ReferenceField,
 } from 'react-admin';
 
 
@@ -23,7 +24,7 @@ const MoviePanel = () => {
 export const MovieShowList = (props: any) => {
 
     const movieFilters = [
-            <TextInput source='q' label="Search by title, genre or status" alwaysOn  
+            <TextInput source='q' label="Search by status" alwaysOn  
                         sx={{ width: '400px' }} // 100% on small screens, 50% on medium screens and up
             />,
             <DateInput source='releaseDate_gte' label="Released After"/>,
@@ -40,8 +41,8 @@ export const MovieShowList = (props: any) => {
             <NumberField source="showId" />
             <DateField source="showDate" />
             <DateField source="showTime" showDate={false} showTime={true} />
-            <NumberField source="movieId" label="Movie"/>
-            <NumberField source="theatreId" label="Theatre"/>
+            <ReferenceField source="movieId" reference="movies" label="Movie"/>
+            {/* <ReferenceField source="theatreId" reference="theatres" label="Theatre"/> */}
             <NumberField source="totalPrice" />
             <NumberField source="availableSeats" /> 
             <TextField source="status"/> 

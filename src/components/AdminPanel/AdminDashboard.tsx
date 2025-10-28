@@ -30,13 +30,11 @@ export default function AdminDashboard(){
                 create={MovieCreate}
                 //   options={{ label: 'Movies' }}
             />
-            <Resource icon={SlideshowIcon} name="show" 
+            <Resource icon={SlideshowIcon} name="shows" 
                 list={MovieShowList} 
-                show={MovieShowView}
                 edit={MovieShowEdit}
                 create={MovieShowCreate}
             />
-            {/* <Resource icon={PersonIcon} name="users" list={UserList} show={UserShow}/> */}
         </Admin>
     )
 };

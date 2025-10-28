@@ -107,9 +107,24 @@ export const MovieDataProvider: DataProvider = {
   },
 
   getOne: async (resource:any, params:any) => {
-    const response = await fetch(`${API_URL}/${resource}/${params.id}`);
-    const data = await response.json();
-    return { data };
+    const {id} = params;
+
+    if(!resourceCache.has(resource)){
+      const response = await fetch(`${API_URL}/${resource}/${params.id}`);
+      const data = await response.json();
+      resourceCache.set(resource, data);
+      console.log("Data fetched and cached for getOne:", API_URL, resource, id);
+      console.log(data);
+    }
+
+    const allRecords = resourceCache.get(resource);
+    const record = allRecords?.find((r) => r.id == id);
+
+    if(!record){
+      throw new Error(`Record with id ${id} not found in resource ${resource}`);
+    }
+    
+    return { data: record };
   },
 
   update: async (resource:any, params:any) => {
@@ -120,7 +135,7 @@ export const MovieDataProvider: DataProvider = {
     });
     const data = await response.json();
     console.log(params.data);
-    console.log(data);
+    console.log("update is called");
     return { data };
   },
 
@@ -131,6 +146,8 @@ export const MovieDataProvider: DataProvider = {
       body: JSON.stringify(params.data),
     });
     const data = await response.json();
+    console.log(params.data);
+    console.log("updateMany is called");
     return { data };
   },
 
