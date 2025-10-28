@@ -1,6 +1,6 @@
 import { DateField, NumberField, Show, SimpleShowLayout, TextField } from 'react-admin';
 
-export const MovieShow = () => (
+export const MovieView = () => (
   <Show title="Show Movie">         
     <SimpleShowLayout>            
       <TextField source="title" />

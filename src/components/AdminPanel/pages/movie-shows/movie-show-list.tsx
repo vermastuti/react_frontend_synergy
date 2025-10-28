@@ -11,6 +11,7 @@ import {
   FunctionField,
   DateInput,
   NumberInput,
+  DateField,
 } from 'react-admin';
 
 
@@ -19,7 +20,7 @@ const MoviePanel = () => {
     return <div>{record?.body}</div>;
 };
 
-export const MovieList = (props: any) => {
+export const MovieShowList = (props: any) => {
 
     const movieFilters = [
             <TextInput source='q' label="Search by title, genre or status" alwaysOn  
@@ -30,21 +31,24 @@ export const MovieList = (props: any) => {
     ]; 
     
     return (
-   <List title="Movies" filters={movieFilters} {...props}>
+   <List title="Shows" filters={movieFilters} {...props}>
         <Datagrid
             sx={{
                 ".RaDatagrid-headerCell": {padding: "5px",},
             }}
         >
-            <TextField source="id" />
-            <TextField source="title" />
-            <TextField source="genre" />
-            <TextField source="releaseDate" /> 
-            <NumberField source="rating" />
-            <TextField source="status" /> 
+            <NumberField source="showId" />
+            <DateField source="showDate" />
+            <DateField source="showTime" showDate={false} showTime={true} />
+            <NumberField source="movieId" label="Movie"/>
+            <NumberField source="theatreId" label="Theatre"/>
+            <NumberField source="totalPrice" />
+            <NumberField source="availableSeats" /> 
+            <TextField source="status"/> 
             <EditButton />
         {/* <DeleteButton /> */}
         </Datagrid>
     </List>
     );
 };
+
