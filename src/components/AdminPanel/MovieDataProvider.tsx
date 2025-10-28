@@ -14,7 +14,7 @@ export interface Movie extends RaRecord {
 }
 
 const API_URL = 'http://localhost:9002/api';
-let allMovies: any = null;
+const resourceCache: Map<string, any[]> = new Map();
 
 
 // ✅ Create a custom dataProvider so React Admin can handle your custom /all endpoint
@@ -26,16 +26,19 @@ export const MovieDataProvider: DataProvider = {
     const searchTerm = filter.q?.toLowerCase();
 
     // 1. If we don't have the data yet, fetch it from the API
-    if (allMovies === null) {
-      const response = await fetch(`${API_URL}/${resource}`);
-      allMovies = await response.json();
+    if (!resourceCache.has(resource)) {
+      const response = await fetch(`${API_URL}\/${resource}`);
+      let resourceData = await response.json();
+      resourceCache.set(resource, resourceData);
+      console.log("Data fetched and cached for resource:", API_URL, resource);
+      console.log(resourceData);
     }
 
-    let filteredMovies = allMovies;
+    let filteredMovies = resourceCache.get(resource) || [];
 
     // 2. Apply the search filter locally
     if(filter){
-      filteredMovies = allMovies.filter((movie: any) => {
+      filteredMovies = filteredMovies.filter((movie: any) => {
 
         if(searchTerm){
           const textMatch = movie.title?.toLowerCase().includes(searchTerm) || 
