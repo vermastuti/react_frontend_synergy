@@ -40,7 +40,7 @@ export default function AdminDashboard(){
                 >
             </Resource>
             
-           <Resource  icon={TheatersIcon} name="theatres" 
+           <Resource  icon={TheatersIcon} name="theatre" 
                 list={TheatreList} 
                 edit={TheatreEdit}
                 create={TheatreCreate}
