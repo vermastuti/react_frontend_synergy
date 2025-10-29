@@ -111,6 +111,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Outfit:wght@500;600&display=swap');
 
 /* Global Layout */
+.seatsinput{
+  color: #0d0d12 !important;
+  width: 10vw!important;
+}
 body {
   background: linear-gradient(145deg, #0d0d12, #1b0a22);
   color: #f2e6f3;
@@ -280,4 +284,7 @@ h2, h3, h4, h5 {
   color: #ffbcd0;
   margin-top: 50px;
   letter-spacing: 0.5px;
+}
+.special-input {
+  background-color: black; /* Your desired text color */
 }
