@@ -27,7 +27,7 @@ export const MovieShowCreate = () => (
       <ReferenceInput source="theatreId" label="Theatre" reference="theatre"/>
       <NumberInput source="totalPrice" />
       <NumberInput source="seats" />
-      <TextInput source="status"/>    
+      <TextInput source="status"/>  
     </SimpleForm>
   </Create>
 );
