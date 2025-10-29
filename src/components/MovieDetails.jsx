@@ -160,7 +160,7 @@ const MovieDetails = () => {
 
         const [movieRes, showsRes, theatreRes] = await Promise.allSettled([
           moviePromise,
-          axios.get(`http://localhost:9003/api/show/viewall/${id}`),
+          axios.get(`http://localhost:9003/api/shows/movie/${id}`),
           axios.get(`http://localhost:9003/api/theatre/all`),
         ]);
 
