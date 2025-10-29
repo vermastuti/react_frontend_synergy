@@ -95,7 +95,6 @@ const MovieDetails = () => {
             if (showDateTime < new Date()) return false;
           }
 
-          // ✅ Keep if seats >= 0 (even 0)
           return show.availableSeats >= 0;
         });
 
