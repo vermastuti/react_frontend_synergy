@@ -4,7 +4,7 @@ import "./layout.css"; // make sure this file exists
 
 function MainLayout({ children }) {
   return (
-    <div className="layout-wrapper" style={{ backgroundColor: "#9379c5ff" }}>
+    <div className="layout-wrapper" style={{ backgroundColor: "#adcaf6ff" }}>
       <Header />
       <main className="container py-4 layout-content">
         {children}

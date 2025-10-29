@@ -121,11 +121,12 @@ const Book = () => {
     setFailureMessage("");
   }
   return (
-    <div style={{ textAlign: "center", padding: "20px" }}>
+    
+    <div style={{ margin:"10%" , textAlign: "center", padding: "20px", color:"#f7f4f4ed", backgroundColor:"#3C1432F2"}}>
       <h3>Book Your Ticket</h3>
       <p><strong>Movie:</strong> {movieTitle || id}</p>
-      <p><strong>Show Date:</strong> {showDate}</p>
-      <p><strong>Show Time:</strong> {showTime}</p>
+      {/* <p><strong>Show Date:</strong> {showDate}</p>
+      <p><strong>Show Time:</strong> {showTime}</p> */}
       <p><strong>Theatre:</strong> {theatreName}, {theatreLocation}</p>
       <p><strong>Price per seat:</strong> ₹{price}</p>
 
