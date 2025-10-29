@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-
+import { AuthContext } from "../context/AuthContext";
 import axios from "axios"; // ✅ Import axios
 import "../styles/Login.css"; // dark red theme CSS
 
 export default function Login() {
     const navigate = useNavigate();
-
+  const { login,isLoggedIn } = useContext(AuthContext);
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
@@ -14,6 +14,12 @@ export default function Login() {
     const [passwordError, setPasswordError] = useState("");
     const [loading, setLoading] = useState(false);
 
+    // 👇 Redirect if already logged in
+   useEffect(() => {
+    if (isLoggedIn) {
+      navigate("/");
+    }
+  }, [isLoggedIn, navigate]);
     function getUsername(evt) {
         setUsername(evt.target.value);
         setEmailError("");
@@ -54,7 +60,10 @@ export default function Login() {
             console.log(response)
             // Example: If backend returns { success: true, token: "..." }
             if (response.data) {
-                sessionStorage.setItem("username", username);
+              console.log("hello");
+                sessionStorage.setItem("username", response.data.email);
+                sessionStorage.setItem("userId",response.data.userId);
+                login(response.data.email); 
                 //sessionStorage.setItem("token", response.data.token); // optional if JWT
                 navigate("/");
             } else {
@@ -111,7 +120,7 @@ export default function Login() {
                 </button>
 
                 <p className="register-text">
-                    Not registered?{" "}
+                    <b>Not registered?</b>{" "}
                     <Link to="/register" className="link">
                         Sign Up
                     </Link>
