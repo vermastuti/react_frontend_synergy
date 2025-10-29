@@ -85,7 +85,7 @@ export default function Login() {
     }
 
     return (
-        <div className="login-container" style={{ backgroundColor: "#e6d6f5" }}>
+        <div className="login-container">
             <div className="form-container" >
                 <h1>Login</h1>
 
