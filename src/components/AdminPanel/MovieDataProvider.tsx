@@ -26,36 +26,45 @@ export const MovieDataProvider: DataProvider = {
     const searchTerm = filter.q?.toLowerCase();
 
     // 1. If we don't have the data yet, fetch it from the API
-    if (!resourceCache.has(resource)) {
+    // if (!resourceCache.has(resource)) {
       const response = await fetch(`${API_URL}\/${resource}`);
       let resourceData = await response.json();
       resourceCache.set(resource, resourceData);
       console.log("Data fetched and cached for resource:", API_URL, resource);
       console.log(resourceData);
-    }
+    // }
 
     let filteredMovies = resourceCache.get(resource) || [];
 
     // 2. Apply the search filter locally
-    if(filter){
-      filteredMovies = filteredMovies.filter((movie: any) => {
+    if(filter && filteredMovies.length > 0){
+      filteredMovies = filteredMovies.filter((record: any) => {
 
         if(searchTerm){
-          const textMatch = movie.title?.toLowerCase().includes(searchTerm) || 
-                            movie.genre?.toLowerCase().includes(searchTerm) ||
-                            movie.status?.toLowerCase().includes(searchTerm)
+          let textMatch: any;
+          if(resource === 'movies'){
+            textMatch = record.title?.toLowerCase().includes(searchTerm) || 
+                        record.genre?.toLowerCase().includes(searchTerm) ||
+                        record.status?.toLowerCase().includes(searchTerm)
+          } else if (resource === 'shows'){
+            textMatch = record.status?.toLowerCase().includes(searchTerm)
+          } else if (resource === 'theatre'){
+            textMatch = record.name?.toLowerCase().includes(searchTerm) || 
+                        record.city?.toLowerCase().includes(searchTerm) ||
+                        record.state?.toLowerCase().includes(searchTerm)
+          }
           
           if (!textMatch) return false;
         }
 
         if(filter.releaseDate_gte){
-          const releasedDate = new Date(movie.releaseDate);
+          const releasedDate = new Date(record.releaseDate);
           const filterDate = new Date(filter.releaseDate_gte);
           if(releasedDate <= filterDate) return false;
         }
 
         if(filter.rating_gt){
-          if(movie.rating <= parseFloat(filter.rating_gt)) return false;
+          if(record.rating <= parseFloat(filter.rating_gt)) return false;
         }
 
         return true;
@@ -109,16 +118,8 @@ export const MovieDataProvider: DataProvider = {
   getOne: async (resource:any, params:any) => {
     const {id} = params;
 
-    if(!resourceCache.has(resource)){
-      const response = await fetch(`${API_URL}/${resource}/${params.id}`);
-      const data = await response.json();
-      resourceCache.set(resource, data);
-      console.log("Data fetched and cached for getOne:", API_URL, resource, id);
-      console.log(data);
-    }
-
-    const allRecords = resourceCache.get(resource);
-    const record = allRecords?.find((r) => r.id == id);
+    const response = await fetch(`${API_URL}/${resource}/${params.id}`);
+    const record = await response.json();
 
     if(!record){
       throw new Error(`Record with id ${id} not found in resource ${resource}`);
@@ -133,10 +134,32 @@ export const MovieDataProvider: DataProvider = {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(params.data),
     });
-    const data = await response.json();
+    const updatedRecord = await response.json();
+
+    // Update the local cache
+    // if (resourceCache.has(resource)) {
+    //   const records = resourceCache.get(resource) ?? [];
+    //   console.log(records);
+    //   console.log(params.id, records[0].id);
+    //   console.log(params.id == records[0].id);
+    //   const recordIndex = records.findIndex(item => item.id === params.id);
+
+    //   if (recordIndex !== -1) {
+    //     // Create a new array with the updated record using immutable updates
+    //     const updatedRecords = [
+    //       ...records.slice(0, recordIndex),
+    //       updatedRecord,
+    //       ...records.slice(recordIndex + 1),
+    //     ];
+    //     resourceCache.set(resource, updatedRecords);
+    //   }
+    //   console.log(records.findIndex(item => item.id === params.id));
+
+    // }
     console.log(params.data);
     console.log("update is called");
-    return { data };
+    return { data: updatedRecord };
+
   },
 
   updateMany: async(resource:any, params:any) => {
@@ -168,6 +191,10 @@ export const MovieDataProvider: DataProvider = {
       body: JSON.stringify(params.data),
     });
     const data = await response.json();
+
+    if (response.status !== 201) {
+      throw new Error(`Failed to create record in resource ${resource}`);
+    }
     console.log(params.data);
     console.log(data);
     return { data };

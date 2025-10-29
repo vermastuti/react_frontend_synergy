@@ -38,13 +38,13 @@ export const MovieShowList = (props: any) => {
                 ".RaDatagrid-headerCell": {padding: "5px",},
             }}
         >
-            <NumberField source="showId" />
+            <NumberField source="id" />
             <DateField source="showDate" />
-            <DateField source="showTime" showDate={false} showTime={true} />
-            <ReferenceField source="movieId" reference="movies" label="Movie"/>
-            {/* <ReferenceField source="theatreId" reference="theatres" label="Theatre"/> */}
+            <TextField source="showTime" />
+            <ReferenceField source="id" reference="movies" label="Movie"/>
+            <ReferenceField source="id" reference="theatre" label="Theatre"/>
             <NumberField source="totalPrice" />
-            <NumberField source="availableSeats" /> 
+            <NumberField source="seats" /> 
             <TextField source="status"/> 
             <EditButton />
         {/* <DeleteButton /> */}

@@ -16,7 +16,14 @@ export const HomePage = () => {
                         Navigate through the menu to get started.
                     </Typography>
                     <br/>
+                    <br/>
                     <Link to="/admin/movies">Movies</Link>
+                    <br/>
+                    <br/>
+                    <Link to="/admin/shows">Shows</Link>
+                    <br/>
+                    <br/>
+                    <Link to="/admin/theatre">Theatres</Link>
                 </CardContent>
             </Card>
         </Box>

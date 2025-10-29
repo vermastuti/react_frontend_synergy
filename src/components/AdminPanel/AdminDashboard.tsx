@@ -20,6 +20,7 @@ import { MovieShowView } from './pages/movie-shows/movie-show-view';
 import { TheatreList } from './pages/theatres/theatre-list';
 import { TheatreEdit } from './pages/theatres/theatre-edit';
 import { TheatreCreate } from './pages/theatres/theatre-create';
+import { TheatreView } from './pages/theatres/theatre-view';
 
 
 export default function AdminDashboard(){
@@ -37,6 +38,7 @@ export default function AdminDashboard(){
                 list={MovieShowList} 
                 edit={MovieShowEdit}
                 create={MovieShowCreate}
+                show={MovieShowView}
                 >
             </Resource>
             
@@ -44,6 +46,7 @@ export default function AdminDashboard(){
                 list={TheatreList} 
                 edit={TheatreEdit}
                 create={TheatreCreate}
+                show={TheatreView}
                 >
              </Resource>   
 
