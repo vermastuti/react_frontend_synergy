@@ -1,7 +1,7 @@
 import { DateField, NumberField, Show, SimpleShowLayout, TextField } from 'react-admin';
 
 export const MovieView = () => (
-  <Show title="Show Movie">         
+  <Show title="Movie Details">         
     <SimpleShowLayout>            
       <TextField source="title" />
       <TextField source="genre" />

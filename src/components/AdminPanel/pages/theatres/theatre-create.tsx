@@ -9,15 +9,17 @@ const validateContactNumber = [
 ];
 const validateStatus = [required()];
 
+
+const mutationOptions = {
+    onSuccess: (data) => {
+        console.log('Theatre created successfully:', data);},
+};
+
 export const TheatreCreate = () => (
-  <Create title="Add Theatre">
+  <Create title="Add Theatre" mutationOptions={mutationOptions}>
     <SimpleForm>
       <TextInput source="name" label="Theatre Name" validate={validateName} />
       <TextInput source="city" label="Location" validate={validateLocation} />
-      {/* <NumberInput source="capacity" label="Seating Capacity" />
-      <NumberInput source="screens" label="Number of Screens" />
-      <TextInput source="contactNumber" label="Contact Number" />
-      <TextInput source="status" label="Status" /> */}
     </SimpleForm>
   </Create>
 );

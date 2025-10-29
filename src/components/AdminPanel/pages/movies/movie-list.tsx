@@ -30,8 +30,9 @@ export const MovieList = (props: any) => {
     ]; 
     
     return (
-   <List title="Movies" filters={movieFilters} {...props}>
+   <List title="List of Movies" filters={movieFilters} {...props}>
         <Datagrid
+            bulkActionButtons={false}
             sx={{
                 ".RaDatagrid-headerCell": {padding: "5px",},
             }}
@@ -43,7 +44,6 @@ export const MovieList = (props: any) => {
             <NumberField source="rating" />
             <TextField source="status" /> 
             <EditButton />
-        {/* <DeleteButton /> */}
         </Datagrid>
     </List>
     );

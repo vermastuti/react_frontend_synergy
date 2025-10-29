@@ -22,24 +22,17 @@ const validateContactNumber = [
 ];
 const validateStatus = [required()];
 
+
+const mutationOptions = {
+    onSuccess: (data) => {
+        console.log('Theatre created successfully:', data);},
+};
+
 export const TheatreEdit = () => (
-  <Edit title="Edit Theatre">
+  <Edit title="Edit Theatre" mutationOptions={mutationOptions}>
     <SimpleForm>
       <TextInput source="name" label="Theatre Name" validate={validateName} />
       <TextInput source="city" label="Location" validate={validateLocation} />
-      {/* <NumberInput source="capacity" label="Seating Capacity" validate={validateCapacity} /> */}
-      {/* <NumberInput source="screens" label="Number of Screens" validate={validateScreens} /> */}
-      {/* <TextInput source="contactNumber" label="Contact Number" validate={validateContactNumber} /> */}
-      {/* <SelectInput
-        source="status"
-        label="Status"
-        validate={validateStatus} 
-        choices={[
-          { id: 'OPEN', name: 'Open' },
-          { id: 'CLOSED', name: 'Closed' },
-          { id: 'UNDER_MAINTENANCE', name: 'Under Maintenance' },
-        ]}
-      /> */}
     </SimpleForm>
   </Edit>
 );
