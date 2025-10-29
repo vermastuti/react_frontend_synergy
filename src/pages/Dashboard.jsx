@@ -2,8 +2,9 @@ import MovieList from "../components/movieList";
 
 function Dashboard() {
   return (
-    <div>
-      <h3>Now Showing</h3>
+    <div >
+      {/* <div style={{ position: 'absolute', top: '5%'}}></div> */}
+      <h3 style={{ position: 'relative', marginTop: '5%'}}> Now Showing</h3>
       <MovieList />
     </div>
   );

@@ -86,7 +86,6 @@ function MyBookings() {
               <th>Seats</th>
               <th>Amount</th>
               <th>Status</th>
-              <th>Paid</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -100,7 +99,6 @@ function MyBookings() {
                 <td>{booking.seats}</td>
                 <td>{booking.amount}</td>
                 <td>{booking.status}</td>
-                <td>{booking.paid ? "Yes" : "No"}</td>
                 <td>
                   {booking.status !== "CANCELLED" && (
                     <button
