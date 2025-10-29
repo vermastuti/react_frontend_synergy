@@ -189,7 +189,7 @@ export default function UserRegistration() {
                     {error.password ? <p className="error">{error.password}</p> : null}
                 </div>
 
-                <button className="btn btn-danger w-100" onClick={handleRegister}>
+                <button className="registrationbutton btn btn-danger w-100" onClick={handleRegister}>
                     Register
                 </button>
             </div>

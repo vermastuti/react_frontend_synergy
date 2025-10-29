@@ -85,8 +85,8 @@ export default function Login() {
     }
 
     return (
-        <div className="login-container">
-            <div className="form-container">
+        <div className="login-container" style={{ backgroundColor: "#e6d6f5" }}>
+            <div className="form-container" >
                 <h1>Login</h1>
 
                 <label>
@@ -115,7 +115,7 @@ export default function Login() {
                     {passwordError && <div className="error">{passwordError}</div>}
                 </label>
 
-                <button onClick={validatingInputs} disabled={loading}>
+                <button className="loginbutton" onClick={validatingInputs} disabled={loading}>
                     {loading ? "Logging in..." : "Login"}
                 </button>
 
