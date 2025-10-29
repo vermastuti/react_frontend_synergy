@@ -87,7 +87,7 @@ export default function UserRegistration() {
 
     const handleRegister = () => {
         if (validate()) {
-            axios.post(BASE_URL + "/auth/api/register", {
+            axios.post(BASE_URL + "/api/auth/register", {
                 "firstName": user.firstName,
                 "lastName": user.lastName,
                 "mobileNo": user.mobileNo,

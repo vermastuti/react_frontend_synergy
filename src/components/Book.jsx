@@ -53,22 +53,15 @@ import axios from "axios";
 const Book = () => {
   const { id } = useParams();
   const location = useLocation();
-
-  const {
-    showId,
-    showTime,
-    theatreName,
-    theatreLocation,
-    price,
-    movieTitle,
-    showDate
-  } = location.state || {};
-
+  const { showId, showTime, theatreName, theatreLocation, price, movieTitle, showDate } = location.state || {};
+  const [showModal, setShowModal] = useState(false);
   const [seats, setSeats] = useState(1);
   const [loading, setLoading] = useState(false);
+   const [confirmMessage, setConfirmMessage] = useState("");
+   const [failureMessage, setFailureMessage] = useState("");
 
-  // Temporary hardcoded user ID (replace with logged-in user's ID)
-  const userProfileId = 1;
+  // Hardcoded email for now — in a real app, you’d take it from logged-in user info
+  const email = sessionStorage.getItem("username");
 
   async function handleBooking() {
     if (!showId) {
@@ -76,11 +69,19 @@ const Book = () => {
       return;
     }
 
-    // ✅ Prepare data according to backend requirement
+  
+
+    const amount = seats * price;
+
+    // Construct the request body
     const bookingData = {
-      userProfileId: userProfileId,
+      email: email,
       movieShowId: showId,
+      movieTitle: movieTitle || id,
+      showDate: showDate || "2025-10-28",  // fallback date
+      showTime: showTime,
       seats: seats,
+      amount: amount
     };
 
     console.log("Booking Request:", bookingData);
@@ -88,22 +89,18 @@ const Book = () => {
     try {
       setLoading(true);
 
-      // ✅ Correct endpoint URL (remove extra colon)
-      const response = await axios.post(
-        "http://localhost:9003/api/book/add",
-        bookingData
-      );
-
-      alert(`🎟 Booking Successful!
-Booking ID: ${response.data.bookingId || response.data.id || "N/A"}
-Total Amount: ₹${seats * price}`);
+      // ✅ Replace with your actual backend endpoint
+      const response = await axios.post("http://localhost:9003/api/book/add", bookingData);
+      setConfirmMessage("Your Booking has been confirmed with us!");
+     // alert(`Booking Successful!\nBooking ID: ${response.data.id}\nTotal: ₹${amount}`);
     } catch (error) {
       console.error("Booking failed:", error);
-
       if (error.response) {
-        alert(`❌ Booking failed: ${error.response.data.message || "Server error"}`);
+        setFailureMessage("Something went wrong!");
+       // alert(`Booking failed: ${error.response.data.message || "Server error"}`);
       } else {
-        alert("❌ Booking failed. Please try again later.");
+        setFailureMessage("Something went wrong!");
+       // alert("Booking failed. Please try again later.");
       }
     } finally {
       setLoading(false);
@@ -111,7 +108,16 @@ Total Amount: ₹${seats * price}`);
   }
 
   if (!showId) return <p>No show selected!</p>;
-
+    function closeModal() {
+    setShowModal(false);
+   // setSelectedBooking(null);
+  }
+  function closeConfirmMessage() {
+    setConfirmMessage("");
+  }
+   function closeFailureMessage() {
+    setFailureMessage("");
+  }
   return (
     <div style={{ textAlign: "center", padding: "20px" }}>
       <h3>Book Your Ticket</h3>
@@ -129,7 +135,9 @@ Total Amount: ₹${seats * price}`);
           max="10"
           className="form-control"
           value={seats}
-          onChange={(e) => setSeats(parseInt(e.target.value) || 1)}
+          onChange={function (e) {
+            setSeats(parseInt(e.target.value) || 1);
+          }}
         />
       </div>
 
@@ -142,6 +150,70 @@ Total Amount: ₹${seats * price}`);
       >
         {loading ? "Booking..." : "Book Ticket"}
       </button>
+
+       {/* Success Message Modal */}
+       {confirmMessage && (
+        <div className="modal show d-block" tabIndex="-1">
+          <div className="modal-dialog"  style={{
+        position: "absolute",
+        top: "20%",
+        left: "50%",
+        transform: "translate(-50%, -30%)",
+        maxWidth: "500px",
+        width: "90%",
+      }}>
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title">Booking Confirmation</h5>
+                <button type="button" className="btn-close" onClick={closeModal}></button>
+              </div>
+              <div className="modal-body">
+                <p>
+                  {confirmMessage}  {" "} 
+                </p>
+              </div>
+              <div className="modal-footer">
+                 <button className="btn btn-primary mt-3" onClick={closeConfirmMessage}>
+                OK
+              </button>
+               
+              </div>
+            </div>
+          </div>
+        </div>
+    )} 
+
+       {/* failure Message Modal */}
+       {failureMessage && (
+        <div className="modal show d-block" tabIndex="-1">
+          <div className="modal-dialog"  style={{
+        position: "absolute",
+        top: "20%",
+        left: "50%",
+        transform: "translate(-50%, -30%)",
+        maxWidth: "500px",
+        width: "90%",
+      }}>
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title">Booking Error!</h5>
+                <button type="button" className="btn-close" onClick={closeModal}></button>
+              </div>
+              <div className="modal-body">
+                <p>
+                  {failureMessage}  {" "} 
+                </p>
+              </div>
+              <div className="modal-footer">
+                 <button className="btn btn-primary mt-3" onClick={closeFailureMessage}>
+                OK
+              </button>
+               
+              </div>
+            </div>
+          </div>
+        </div>
+    )} 
     </div>
   );
 };
