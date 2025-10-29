@@ -40,10 +40,10 @@ export const TheatreList = (props: any) => {
           '.RaDatagrid-headerCell': { padding: '5px' },
         }}
       >
-        <NumberField source="theatreId" label="Theatre ID" />
+        <NumberField source="id" label="Theatre ID" />
         <TextField source="name" label="Theatre Name" />
         <TextField source="city" label="City" />
-        <NumberField source="seats" label="Seats" />
+        {/* <NumberField source="seats" label="Seats" /> */}
         <EditButton />
       </Datagrid>
     </List>

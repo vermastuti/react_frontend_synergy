@@ -29,7 +29,7 @@ const MovieDetails = () => {
         const [movieRes, showsRes, theatreRes] = await Promise.allSettled([
           moviePromise,
           axios.get(`http://localhost:9003/api/shows/movie/${id}`),
-          axios.get(`http://localhost:9003/api/theatre/all`),
+          axios.get(`http://localhost:9003/api/theatre`),
         ]);
         
 
@@ -63,7 +63,6 @@ const MovieDetails = () => {
 
   const getTheatreDetails = (theatreId) =>
     theatres.find((t) => t.theatreId === theatreId);
-
   if (loading) return <h3 className="loading">Loading...</h3>;
   if (error && !movie) return <h3 className="error">{error}</h3>;
 
@@ -87,13 +86,10 @@ const MovieDetails = () => {
         const validShows = shows.filter((show) => {
           const theatre = getTheatreDetails(show.theatreId);
 
-          // ❌ Skip if price missing
           if (show.totalPrice == null) return false;
 
-          // ❌ Skip if status is not "Available"
           if (show.status?.toLowerCase() !== "available") return false;
 
-          // ❌ Skip if show date/time has passed
           if (show.showDate && show.showTime) {
             const showDateTime = new Date(`${show.showDate}T${show.showTime}`);
             if (showDateTime < new Date()) return false;

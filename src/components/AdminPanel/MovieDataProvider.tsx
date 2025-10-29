@@ -13,7 +13,7 @@ export interface Movie extends RaRecord {
   [key: string]: any; // Allow other optional fields
 }
 
-const API_URL = 'http://localhost:9002/api';
+const API_URL = 'http://localhost:9003/api';
 const resourceCache: Map<string, any[]> = new Map();
 
 

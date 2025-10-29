@@ -11,6 +11,7 @@ export const MovieCreate = () => (
       <TextInput source="mlanguage" label="Language"/>
       <TextInput source="duration" />
       <TextInput source="status" />
+      <TextInput source="image"/>    
     </SimpleForm>
   </Create>
 );

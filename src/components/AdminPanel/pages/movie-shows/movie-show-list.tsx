@@ -41,8 +41,8 @@ export const MovieShowList = (props: any) => {
             <NumberField source="id" />
             <DateField source="showDate" />
             <TextField source="showTime" />
-            <ReferenceField source="id" reference="movies" label="Movie"/>
-            <ReferenceField source="id" reference="theatre" label="Theatre"/>
+            <ReferenceField source="movieId" reference="movies" label="Movie"/>
+            <ReferenceField source="theatreId" reference="theatre" label="Theatre"/>
             <NumberField source="totalPrice" />
             <NumberField source="seats" /> 
             <TextField source="status"/> 

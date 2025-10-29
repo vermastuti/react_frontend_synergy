@@ -9,7 +9,8 @@ export const MovieEdit = () => (
       <DateInput source="releaseDate" />
       <TextInput source="mlanguage" label="Language"/>
       <TextInput source="duration" />
-      <TextInput source="status" />       
+      <TextInput source="status" />   
+      <TextInput source="image"/>      
     </SimpleForm>    
 </Edit>
 );

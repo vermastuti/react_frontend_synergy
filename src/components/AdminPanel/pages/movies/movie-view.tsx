@@ -10,6 +10,7 @@ export const MovieView = () => (
       <TextField source="mlanguage" label="Language"/>
       <TextField source="duration" />
       <TextField source="status" />  
+      <TextField source="image"/>  
     </SimpleShowLayout>    
 </Show>
 );
