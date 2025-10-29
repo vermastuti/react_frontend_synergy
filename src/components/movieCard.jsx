@@ -18,7 +18,7 @@ function MovieCard(props) {
   return (
     <div className="card movie-card">
       <img
-        src={`src/assets/Images/${props.movie.image}`}
+        src={`${props.movie.image}`}
         alt={props.movie.title}
         className="card-img-top"
       />
