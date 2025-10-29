@@ -53,7 +53,9 @@ import axios from "axios";
 const Book = () => {
   const { id } = useParams();
   const location = useLocation();
+
   const { showId, showTime, theatreName, theatreLocation, price, movieTitle, showDate } = location.state || {};
+  console.log(id)
   const [showModal, setShowModal] = useState(false);
   const [seats, setSeats] = useState(1);
   const [loading, setLoading] = useState(false);
@@ -129,11 +131,11 @@ const Book = () => {
 
       <div className="mb-3">
         <label>Number of Seats</label>
-        <input
+        <input 
           type="number"
           min="1"
           max="10"
-          className="form-control"
+          // className="form-control seatsinput"
           value={seats}
           onChange={function (e) {
             setSeats(parseInt(e.target.value) || 1);

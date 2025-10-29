@@ -45,11 +45,11 @@ const MovieDetails = () => {
           setShows([]);
         }
 
-        if (theatreRes.status === "fulfilled") {
+        // if (theatreRes.status === "fulfilled") {
           setTheatres(theatreRes.value.data || []);
-        } else {
-          setTheatres([]);
-        }
+        // } else {
+          // setTheatres([]);
+        // }
       } catch (err) {
         console.error("Error fetching movie details:", err);
         setError("Something went wrong. Please try again later.");
@@ -61,8 +61,17 @@ const MovieDetails = () => {
     fetchData();
   }, [id, movieFromState]);
 
-  const getTheatreDetails = (theatreId) =>
-    theatres.find((t) => t.theatreId === theatreId);
+  const getTheatreDetails = (theatreId) => 
+
+
+    {
+      let filtered=theatres.find((t) => t.id == theatreId);
+    //  console.log(theatres);
+      console.log(filtered)
+      return(filtered)
+    //setTheatres(() => theatres.filter((t) => t.id == theatreId));
+    }
+
   if (loading) return <h3 className="loading">Loading...</h3>;
   if (error && !movie) return <h3 className="error">{error}</h3>;
 
@@ -84,7 +93,7 @@ const MovieDetails = () => {
 
       {(() => {
         const validShows = shows.filter((show) => {
-          const theatre = getTheatreDetails(show.theatreId);
+       //   const theatre = getTheatreDetails(show.theatreId);
 
           if (show.totalPrice == null) return false;
 
@@ -102,7 +111,8 @@ const MovieDetails = () => {
           <div className="show-card-container">
             {validShows.map((show) => {
               const theatre = getTheatreDetails(show.theatreId);
-              const isFull = show.availableSeats === 0;
+              console.log(theatre)
+              const isFull = show.availableSeats < 0;
 
               return (
                 <div key={show.showId} className="show-card">
@@ -134,14 +144,14 @@ const MovieDetails = () => {
                     <Link
                       to={`/Book/${movie.title}`}
                       state={{
-                        showId: show.showId,
+                        showId: show.id,
                         theatreName: theatre?.name,
                         theatreLocation: theatre?.city,
                         showTime: show.showTime,
                         price: show.totalPrice,
                       }}
-                      className="book-btn"
-                    >
+                      className="book-btn">
+                    
                       Book Now
                     </Link>
                   )}
