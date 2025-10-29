@@ -192,9 +192,9 @@ export const MovieDataProvider: DataProvider = {
     });
     const data = await response.json();
 
-    if (response.status !== 201) {
-      throw new Error(`Failed to create record in resource ${resource}`);
-    }
+    // if (response.status !== 201) {
+    //   throw new Error(`Failed to create record in resource ${resource}`);
+    // }
     console.log(params.data);
     console.log(data);
     return { data };

@@ -21,12 +21,20 @@ import { TheatreList } from './pages/theatres/theatre-list';
 import { TheatreEdit } from './pages/theatres/theatre-edit';
 import { TheatreCreate } from './pages/theatres/theatre-create';
 import { TheatreView } from './pages/theatres/theatre-view';
+import { AdminLogin } from './pages/AdminLogin';
 
 
 export default function AdminDashboard(){
 
     return(
-        <Admin basename="/admin" layout={Layout} dataProvider={MovieDataProvider} dashboard={HomePage} authProvider={authProvider}>
+        <Admin basename="/admin" 
+                layout={Layout} 
+                dataProvider={MovieDataProvider} 
+                dashboard={HomePage} 
+                loginPage={AdminLogin}
+                authProvider={authProvider}
+                >
+
             <Resource  icon={MovieIcon} name="movies" 
                 list={MovieList} 
                 show={MovieView}

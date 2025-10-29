@@ -9,7 +9,7 @@ export const HomePage = () => {
             <Card>
                 <CardContent>
                     <Typography variant='h4' component='div' gutterBottom>
-                        Welcome to the Dashboard
+                        Welcome to Admin Dashboard of Movie Booking System 
                     </Typography>
                     <Typography variant='body1' color='text.secondary'>
                         Manage your movies and shows effortlessly with the tools provided.
@@ -17,13 +17,13 @@ export const HomePage = () => {
                     </Typography>
                     <br/>
                     <br/>
-                    <Link to="/admin/movies">Movies</Link>
+                    <Link to="/admin/movies">Manage Movies</Link>
                     <br/>
                     <br/>
-                    <Link to="/admin/shows">Shows</Link>
+                    <Link to="/admin/shows">Manage Shows</Link>
                     <br/>
                     <br/>
-                    <Link to="/admin/theatre">Theatres</Link>
+                    <Link to="/admin/theatre">Manage Theatres</Link>
                 </CardContent>
             </Card>
         </Box>
