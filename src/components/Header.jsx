@@ -105,10 +105,13 @@ const Header = () => {
             </>
           ) : (
             <>
-              <span className="welcome-text">👋 Welcome, {user}</span>
-
-              <Link to="/mybookings" className="nav-link">
-                <Ticket size={18} /> <span>My Bookings</span>
+            
+            <span className="me-3">Welcome, {user}</span>
+             <Link to="/" className="text-white me-3">
+            Home
+          </Link>
+              <Link to="/mybookings" className="text-white me-3">
+                My Bookings
               </Link>
 
               <Link to="/" className="nav-link logout-link" onClick={handleLogout}>

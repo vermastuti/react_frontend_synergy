@@ -1,18 +1,115 @@
-# FE_BookMyMovie
-FrontEnd development of BookMyMovie project
-# React + Vite
+# BookMyMovie - Movie Ticket Booking System
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A React application that provides FrontEnd for movie ticket booking and management.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- User Registration and Login
+- Admin Operations for Movie Management, Show Management, Theatre Management
+- Show movie details and presenting the show details for Booking the ticket
+- MyBooking section for particular customer
+- confirmation panels and Booking reports
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
-## Expanding the ESLint configuration
+Layer	                            Technology
+Frontend	                        React 18 (Vite)
+State Management	                React Context API / Redux
+Routing	                            React Router DOM
+HTTP Client	                        Axios
+Styling	                             Bootstrap
+Backend (API)	Spring Boot + MySQL
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Prerequisites
+
+Node.js v16+
+
+npm or yarn
+
+Backend server running (Spring Boot API)
+
+## Project Structure
+
+```
+BookMyMovie_FE/
+│
+├── src/
+│   ├── components/        # Reusable UI components (Navbar, Footer, SeatMap, etc.)
+│   ├── pages/             # Page components (Login, Register, Movies, AdminDashboard, etc.)          
+│   ├── context/           # Authentication and global state management
+│   ├── utils/             # Helper functions and constants
+│   ├── App.js             # Main app entry point
+│   └── index.js           # Renders React app
+│
+├── public/                # Static assets
+├── package.json           # Dependencies and scripts
+└── README.md    
+```
+
+## API Endpoints
+
+
+### User Management
+- POST `/api/auth/register` - Register a new user
+- POST `/api/auth/login` - User login
+
+### Movie Management (Admin)
+- POST `/api/admin/movies` - Add a new movie
+- PUT `/api/admin/movies/{id}` - Update movie details
+- DELETE `/api/admin/movies/{id}` - Delete a movie
+
+### Show Management
+- POST `/api/movieShows` - Add a new movieShow
+- GET `/api/movieShows` - Get all movieShows
+- GET `/api/movieShows/{id}` - Get movieShow details
+
+### Booking Management
+- POST `/api/bookings` - Book tickets
+- GET `/api/bookings/{id}` - Get booking details
+- PUT `/api/bookings/{id}` - Update booking status
+
+## Getting Started
+
+### Prerequisites
+- Java JDK
+- Maven
+- Your favorite IDE (IntelliJ IDEA, Eclipse, etc.)
+
+### Installation
+
+1. Clone the repository
+```bash
+git clone https://github.com/ks212/BookMyMovie_FE
+```
+
+2. Navigate to the project directory
+```bash
+cd BookMyMovie_FE
+```
+
+3. Install dependencies
+
+npm install
+
+
+4. Run the application
+npm run dev
+
+The application will start running at `http://localhost:9173`
+
+## Security
+
+
+
+## Contributing
+
+1. clone the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## License
+
+This project is licensed under the Thoughtworks License - see the LICENSE file for details.

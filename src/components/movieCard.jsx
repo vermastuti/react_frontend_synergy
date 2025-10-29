@@ -26,7 +26,7 @@ function MovieCard(props) {
         <h5>{props.movie.title}</h5>
         <p>{props.movie.genre}</p>
         <div>
-          <button className="btn btn-primary" onClick={handleViewDetails}>
+          <button to={`/MovieDetails/${props.movie.id}`} onClick={handleViewDetails} className="btn btn-primary">
             View Details
           </button>
         </div>

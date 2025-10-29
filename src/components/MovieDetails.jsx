@@ -1,3 +1,4 @@
+
 import { useParams, useLocation, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
@@ -24,12 +25,13 @@ const MovieDetails = () => {
         const moviePromise = movieFromState
           ? Promise.resolve({ data: movieFromState })
           : axios.get(`http://localhost:9003/api/movies/${id}`);
-
+       
         const [movieRes, showsRes, theatreRes] = await Promise.allSettled([
           moviePromise,
           axios.get(`http://localhost:9003/api/shows/movie/${id}`),
           axios.get(`http://localhost:9003/api/theatre`),
         ]);
+        
 
         if (movieRes.status === "fulfilled") {
           setMovie(movieRes.value.data);
